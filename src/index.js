@@ -1,2 +1,2 @@
-import 'sanitize.css';
-import './style.css';
+import './style.scss';
+import { apiController } from './modules/apiController';
