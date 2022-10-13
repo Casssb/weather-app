@@ -2,11 +2,14 @@ const apiController = (() => {
   const WEATHER_API_KEY = 'c35f19687763a3d6d7b695ca8f7b9027';
   const SEARCH_API_KEY = '07bce3bcccec446b94c8c1089ba510ba';
 
-  const locationData = async (text) => {
+  const locationData = async (location) => {
     try {
       const apiCall = await fetch(
-        `https://api.geoapify.com/v1/geocode/autocomplete?text=${text}&format=json&apiKey=${SEARCH_API_KEY}`
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&format=json&apiKey=${SEARCH_API_KEY}`,
+        { mode: 'cors' }
       );
+      if (!apiCall) throw new Error('data not found');
+
       const searchData = await apiCall.json();
       console.log(searchData);
     } catch (error) {
