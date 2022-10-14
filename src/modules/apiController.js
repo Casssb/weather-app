@@ -1,3 +1,5 @@
+import { displayController } from './domController';
+
 const apiController = (() => {
   const WEATHER_API_KEY = 'c35f19687763a3d6d7b695ca8f7b9027';
   const SEARCH_API_KEY = '07bce3bcccec446b94c8c1089ba510ba';
@@ -19,7 +21,7 @@ const apiController = (() => {
     }
   };
 
-  const debounceLocationData = (text, delay = 1000) => {
+  const debounceLocationData = (text, delay = 500) => {
     /*Will only allow the API to be called if a certain amount of time
      has passed since the first input. There must be more than 3 characters
      entered for the API to be called at all*/
@@ -27,7 +29,11 @@ const apiController = (() => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       const delayedResponse = locationData(text);
-      delayedResponse.then((data) => console.log(data.results));
+      delayedResponse
+        .then((data) => data.results)
+        .then((result) =>
+          result.forEach((result) => displayController.createSearchListItem(result))
+        );
     }, delay);
   };
 
