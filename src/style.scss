@@ -1,6 +1,13 @@
 @import url(~sanitize.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+@mixin flex($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
 :root {
   --font-size-sm: clamp(0.6rem, 0.53vw + 0.47rem, 0.89rem);
   --font-size-base: clamp(0.75rem, 0.8vw + 0.55rem, 1.19rem);
@@ -12,7 +19,7 @@
 
   --ff-main: 'Roboto', sans-serif;
 
-  --col-text: rgba(255, 251, 251, 0.89);
+  --col-text: rgba(255, 251, 251, 1);
 }
 
 body {
@@ -23,9 +30,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: var(--ff-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex(row);
 }
 
 .container {
@@ -41,36 +46,67 @@ body {
 }
 
 .header {
-    height: min-content;
-    display: flex ;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(2px);
-    padding: 0 1rem;
+  height: min-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: 0 1rem;
 
-    &-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  &-title {
+    @include flex(row);
+  }
+
+  &-search-container {
+    @include flex(column);
+    margin-top: 1rem;
+    width: 30%;
+
+    form {
+      width: 100%;
+      @include flex(row);
+      position: relative;
+
+      svg {
+        position: absolute;
+        left: 2px;
+        height: 1.4rem;
+        width: 1.4rem;
+        color: black;
+      }
+
+      input {
+        width: 100%;
+        padding-left: 1.3rem;
+      }
     }
+    .header-search-dropdown {
+      position: relative;
+      width: 100%;
 
-    &-search-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
+      .header-search-results {
+        position: absolute;
+        background-color: white;
+        color: black;
+        margin: 0;
+        padding: 0;
+        z-index: 99;
+        width: 100%;
+        border-radius: 2px;
 
-        form {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .search-results-elem {
+          width: 100%;
+          list-style: none;
 
-            input {
-                width: 100%;
-            }
+          &:hover {
+            cursor: pointer;
+            padding: 0;
+            background-color: aqua;
+          }
         }
+      }
     }
+  }
 }
