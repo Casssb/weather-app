@@ -123,8 +123,23 @@ body {
 }
 
 .weather-today-summary {
+  height: 100%;
+  width: 100%;
   grid-area: summary;
   background-color: rgba(202, 130, 130, 0.164);
+
+  .summary-container {
+    height: 100%;
+    width: 100%;
+    @include flex(column);
+
+    .summary-title {
+    }
+
+    .summary-weather {
+      @include flex(row);
+    }
+  }
 }
 
 .weather-today-detailed {
@@ -133,6 +148,49 @@ body {
 }
 
 .weather-week {
+  height: 100%;
+  width: 100%;
   grid-area: week;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
   background-color: rgba(127, 255, 212, 0.137);
+
+  .day-container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.555);
+    border: 1px solid black;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    @include flex(column);
+
+    .day-date {
+      margin: 0;
+      padding: 0
+    }
+
+    .day-weather-wrapper {
+      width: 100%;
+      @include flex(row);
+
+      .day-image-wrapper {
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .day-temp-wrapper {
+        @include flex(column);
+      }
+    }
+    .day-summary {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
