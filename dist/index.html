@@ -33,6 +33,7 @@
               id="search"
               placeholder="Search.."
               aria-label="search bar"
+              autocomplete="off"
             />
           </form>
           <div class="header-search-dropdown">
@@ -51,9 +52,15 @@
       </header>
 
       <main class="weather-info">
-        <section class="weather-today-summary"></section>
-        <section class="weather-today-detailed"></section>
-        <section class="weather-week"></section>
+        <section
+          class="weather-today-summary"
+          id="weather-today-summary"
+        ></section>
+        <section
+          class="weather-today-detailed"
+          id="weather-today-detailed"
+        ></section>
+        <section class="weather-week" id="weather-week"></section>
       </main>
     </div>
   </body>
