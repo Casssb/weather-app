@@ -130,7 +130,7 @@ body {
     }
     .header-search-dropdown {
       position: relative;
-      z-index: 99;
+      z-index: 98;
       width: 100%;
 
       .header-search-results {
@@ -214,20 +214,17 @@ input[type='checkbox'] {
 /* Main weather summary starts here */
 
 .weather-today-summary {
-  position: relative;
-  z-index: -1;
+  grid-area: summary;
   height: 100%;
   width: 100%;
-  grid-area: summary;
   padding: 0.5rem 0.5rem 0 0.5rem;
 
   .summary-container {
+    z-index: -1;
     height: 100%;
     width: 100%;
     @include flex(column);
     background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(0, 0, 0, 0.637);
     border-radius: 0.2rem;
     padding: 0.2rem;
@@ -292,7 +289,6 @@ input[type='checkbox'] {
   padding: 0.5rem 0.5rem 0 0.5rem;
 
   .today-detailed-container {
-    z-index: -1;
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -397,5 +393,104 @@ input[type='checkbox'] {
 /* Media queries start here */
 
 @media screen and (max-width: 900px) {
+  body {
+    height: 100%;
+  }
+  .container {
+    height: 100vh;
+    max-height: none;
+    width: 100%;
+  }
+}
 
+@media screen and (max-width: 760px) {
+  .weather-week {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    overflow: auto;
+
+    &:first-child {
+      margin-left: auto;
+    }
+
+    &:last-child {
+      margin-right: auto;
+    }
+
+    .day-container {
+      min-height: 0;
+      min-width: 0;
+      width: 150px;
+    }
+  }
+}
+
+@media screen and (max-width: 630px) {
+  body {
+    height: 100%;
+  }
+
+  .container {
+    min-height: 100vh;
+    height: 100%;
+  }
+
+  .header {
+    @include flex(column);
+    padding: 1rem;
+    gap: 1rem;
+
+    &-search-container {
+      width: 80%;
+
+      .header-search-form {
+        width: 100%;
+
+        input {
+          padding-left: 2rem;
+        }
+      }
+    }
+  }
+
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .weather-today-summary {
+    .summary-container {
+      padding: 1rem;
+    }
+  }
+
+  .weather-week {
+    @include flex(column);
+
+    .day-container {
+      height: min-content;
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  .weather-today-detailed {
+    .today-detailed-container {
+      padding: 1rem;
+
+      .today-detailed-card {
+        padding: 20%;
+
+        svg {
+          width: var(--size-lg);
+          height: var(--size-lg);
+        }
+
+        .today-detailed-text {
+          font-size: var(--size-md);
+        }
+      }
+    }
+  }
 }
