@@ -6,6 +6,7 @@ const displayController = (() => {
   /* Search bar nodes */
   const searchInput = document.querySelector('#search');
   const searchListContainer = document.querySelector('#search-results');
+  const clearSearchButton = document.querySelector('#search-close');
   /* Main content nodes */
   const todaySummaryContainer = document.querySelector(
     '#weather-today-summary'
@@ -28,6 +29,7 @@ const displayController = (() => {
     apiController.getWeatherData(latitude, longitude, temp);
     searchListContainer.innerHTML = '';
     searchInput.value = '';
+    clearSearchButton.classList.remove('visible');
     weekContainer.innerHTML = '';
   };
 
@@ -46,7 +48,7 @@ const displayController = (() => {
   const createTodaysWeather = (apiData) => {
     todaySummaryContainer.innerHTML = '';
     todayDetailedContainer.innerHTML = '';
-    /* http://openweathermap.org/img/wn/10d@2x.png */
+    
     const unitValue = temp === 'metric' ? 'C' : 'F';
     const distance = temp === 'metric' ? 'm/s' : 'm/h';
     /* Summary section info */
@@ -63,8 +65,14 @@ const displayController = (() => {
     const feelsLike = Math.round(apiData.main.feels_like);
     const humidity = apiData.main.humidity;
     const timezone = apiData.timezone;
-    const sunrise = format(fromUnixTime(apiData.sys.sunrise + timezone), 'h:mm a');
-    const sunset = format(fromUnixTime(apiData.sys.sunset + timezone), 'h:mm a');
+    const sunrise = format(
+      fromUnixTime(apiData.sys.sunrise + timezone),
+      'h:mm a'
+    );
+    const sunset = format(
+      fromUnixTime(apiData.sys.sunset + timezone),
+      'h:mm a'
+    );
     const windSpeed = apiData.wind.speed;
     const visibility = apiData.visibility;
 
@@ -186,10 +194,8 @@ const displayController = (() => {
         <p class="today-detailed-value">${visibility}m</p>
       </div>
     </div>
-    </div>`
+    </div>`;
     todayDetailedContainer.append(detailsContainer);
-
-    console.log(apiData);
   };
 
   const createFiveDayWeather = (apiData) => {
@@ -199,7 +205,7 @@ const displayController = (() => {
     const high = Math.round(apiData.main.temp_max);
     const low = Math.round(apiData.main.temp_min);
     const summary = apiData.weather[0].description;
-    
+
     /* create and append each daily forecast*/
     const dayContainer = document.createElement('div');
     dayContainer.classList.add('day-container');
@@ -217,16 +223,42 @@ const displayController = (() => {
         <h4 class="day-temp-low">${low}°</h4>
       </div>
     </div>
-    <h4 class="day-summary">${summary}</h4>`
+    <h4 class="day-summary">${summary}</h4>`;
     weekContainer.append(dayContainer);
-    console.log(apiData);
   };
 
+  /* Listeners for search bar functionality */
+
   searchInput.addEventListener('input', async () => {
+    clearSearchButton.classList.add('visible');
     searchListContainer.innerHTML = '';
     const search = searchInput.value;
     apiController.debounceLocationData(search);
   });
+
+  clearSearchButton.addEventListener('click', () => {
+    searchInput.value = '';
+    searchListContainer.innerHTML = '';
+    clearSearchButton.classList.remove('visible');
+  });
+
+  /* Listener for temperature toggle checkbox */
+  const tempToggle = document.querySelector('#temp-checkbox');
+  const coords = storageController.getCoords();
+  tempToggle.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      temp = 'imperial';
+      apiController.getWeatherData(coords.lat, coords.lon, temp);
+      weekContainer.innerHTML = '';
+    } else {
+      temp = 'metric';
+      apiController.getWeatherData(coords.lat, coords.lon, temp);
+      weekContainer.innerHTML = '';
+    }
+  });
+
+  /* Listener to trigger Geolocation API on load (will return a default
+    value from locastorage if users clicks block or there is an error) */
 
   window.addEventListener('load', () => {
     apiController.handleCurrentLocation(temp);

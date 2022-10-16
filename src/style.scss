@@ -16,6 +16,7 @@
   --size-xl: clamp(1.46rem, 2.45vw + 0.85rem, 2.81rem);
   --size-xxl: clamp(1.83rem, 3.49vw + 0.96rem, 3.75rem);
   --size-xxxl: clamp(2.29rem, 4.93vw + 1.06rem, 5rem);
+  --size-massive: clamp(7.25rem, 8.82vw + 5.04rem, 12.1rem);
 
   --ff-main: 'Roboto', sans-serif;
 
@@ -84,7 +85,6 @@ body {
 
   &-search-container {
     @include flex(column);
-    margin-top: 1rem;
     width: 40%;
 
     form {
@@ -92,27 +92,53 @@ body {
       @include flex(row);
       position: relative;
 
-      svg {
+      .header-search-form-icon {
         position: absolute;
-        left: 2px;
+        left: 6px;
         height: 1.4rem;
         width: 1.4rem;
         color: black;
       }
 
       input {
+        cursor: auto;
+        height: var(--size-lg);
+        font-size: var(--size-sm);
         width: 100%;
-        padding-left: 1.3rem;
+        padding-left: var(--size-lg);
+        border: none;
+        border-radius: 0.2rem;
+      }
+
+      .header-search-form-close {
+        cursor: pointer;
+        position: absolute;
+        right: 4px;
+        height: 1.4rem;
+        width: 1.4rem;
+        color: black;
+        display: none;
+
+        &:hover {
+          color: rgba(0, 0, 0, 0.733);
+        }
+
+        &.visible {
+          display: block;
+        }
       }
     }
     .header-search-dropdown {
       position: relative;
+      z-index: 99;
       width: 100%;
 
       .header-search-results {
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.26);
-        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        color: var(--col-text);
         padding: 0;
         z-index: 99;
         width: 100%;
@@ -137,6 +163,40 @@ body {
 /* Header title & search ends here */
 
 /* Header checkbox starts here */
+/* Taken from https://uiverse.io/detail/nikk7007/smooth-fox-6
+   cheers @nikk7007! */
+
+input[type='checkbox'] {
+  appearance: none;
+  height: 2rem;
+  width: 3.5rem;
+  background-color: #fff;
+  position: relative;
+  border-radius: 0.2em;
+  cursor: pointer;
+
+  &::before {
+    content: 'C';
+    text-align: center;
+    display: block;
+    height: 1.9em;
+    width: 1.9em;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: calc(1.9em / 2 + 0.3em);
+    background-color: var(--col-hot);
+    border-radius: 0.2em;
+    transition: 0.3s ease;
+  }
+
+  &:checked::before {
+    content: 'F';
+    text-align: center;
+    background-color: var(--col-cold);
+    left: calc(100% - (1.9em / 2 + 0.3em));
+  }
+}
 
 /* Header checkbox ends here */
 
@@ -154,6 +214,8 @@ body {
 /* Main weather summary starts here */
 
 .weather-today-summary {
+  position: relative;
+  z-index: -1;
   height: 100%;
   width: 100%;
   grid-area: summary;
@@ -186,8 +248,8 @@ body {
       @include flex(row);
 
       &-img-wrapper {
-        height: 12rem;
-        width: 12rem;
+        height: var(--size-massive);
+        width: var(--size-massive);
 
         img {
           height: 100%;
@@ -210,6 +272,7 @@ body {
 
     .summary-description {
       font-size: var(--size-md);
+      text-align: center;
 
       &::first-letter {
         text-transform: uppercase;
@@ -320,6 +383,7 @@ body {
     }
     .day-summary {
       padding: 0;
+      text-align: center;
 
       &::first-letter {
         text-transform: uppercase;
@@ -329,3 +393,9 @@ body {
 }
 
 /* Week forecast weather details end here */
+
+/* Media queries start here */
+
+@media only screen and (max-width) {
+
+}
