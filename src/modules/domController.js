@@ -64,7 +64,7 @@ const displayController = (() => {
     const low = Math.round(apiData.main.temp_min);
     const feelsLike = Math.round(apiData.main.feels_like);
     const humidity = apiData.main.humidity;
-    const timezone = apiData.timezone;
+    const timezone = apiData.timezone + (new Date().getTimezoneOffset() * 60);
     const sunrise = format(
       fromUnixTime(apiData.sys.sunrise + timezone),
       'h:mm a'

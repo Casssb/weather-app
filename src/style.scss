@@ -135,10 +135,10 @@ body {
 
       .header-search-results {
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        color: var(--col-text);
+        color: black;
         padding: 0;
         z-index: 99;
         width: 100%;
@@ -148,10 +148,12 @@ body {
           z-index: 99;
           width: 100%;
           list-style: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.295);
+          padding-left: 0.5rem;
 
           &:hover {
             cursor: pointer;
-            padding: 0;
+            padding: 0.5rem;
             background-color: var(--col-cold);
           }
         }
@@ -448,6 +450,8 @@ input[type='checkbox'] {
 
         input {
           padding-left: 2rem;
+          height: 3rem;
+          font-size: 1.2rem;
         }
       }
     }
