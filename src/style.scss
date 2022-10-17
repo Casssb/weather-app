@@ -149,11 +149,10 @@ body {
           width: 100%;
           list-style: none;
           border-bottom: 1px solid rgba(0, 0, 0, 0.295);
-          padding-left: 0.5rem;
+          padding: 0.5rem;
 
           &:hover {
             cursor: pointer;
-            padding: 0.5rem;
             background-color: var(--col-cold);
           }
         }
@@ -340,16 +339,14 @@ input[type='checkbox'] {
   .day-container {
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(24, 24, 24, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.637);
     border-radius: 0.2rem;
     padding: 0.2rem;
     @include flex(column);
 
     &:hover {
-      background-color: rgba(43, 43, 43, 0.555);
+      background-color: rgba(43, 43, 43, 0.5);
     }
 
     .day-date {
@@ -450,7 +447,7 @@ input[type='checkbox'] {
 
         input {
           padding-left: 2rem;
-          height: 3rem;
+          height: 2rem;
           font-size: 1.2rem;
         }
       }
