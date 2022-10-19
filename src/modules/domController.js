@@ -230,6 +230,7 @@ const displayController = (() => {
   /* Listeners for search bar functionality */
 
   searchInput.addEventListener('input', async () => {
+    searchIndex = 0;
     clearSearchButton.classList.add('visible');
     searchListContainer.innerHTML = '';
     const search = searchInput.value;
@@ -240,6 +241,47 @@ const displayController = (() => {
     searchInput.value = '';
     searchListContainer.innerHTML = '';
     clearSearchButton.classList.remove('visible');
+  });
+
+  /* Logic to allow keyboard use */
+
+  /* Holds the state to allow key presses to loop search results */
+  let searchIndex = 0;
+
+  const HandleKeyCoords = (list, elem) => {
+    const latitude = list[elem].dataset.lat;
+    const longitude = list[elem].dataset.lon;
+    storageController.updateLocalstorage(latitude, longitude);
+    apiController.getWeatherData(latitude, longitude, temp);
+    searchListContainer.innerHTML = '';
+    searchInput.value = '';
+    clearSearchButton.classList.remove('visible');
+    weekContainer.innerHTML = '';
+  };
+
+  searchInput.addEventListener('keydown', (e) => {
+    const listItems = document.querySelectorAll('.search-results-elem');
+    listItems.forEach((item) => {
+      item.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+    });
+
+    if (listItems) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        HandleKeyCoords(listItems, searchIndex);
+        searchIndex = 0;
+      } else if (e.keyCode === 40) {
+        if (searchIndex >= listItems.length - 1) return;
+        searchIndex += 1;
+        listItems[searchIndex].style.backgroundColor = '#018881';
+        console.log(e, searchIndex);
+      } else if (e.keyCode === 38) {
+        if (searchIndex === 0) return;
+        searchIndex -= 1;
+        listItems[searchIndex].style.backgroundColor = '#018881';
+        console.log(e, searchIndex);
+      }
+    }
   });
 
   /* Listener for temperature toggle checkbox */

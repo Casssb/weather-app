@@ -172,6 +172,9 @@ input[type='checkbox'] {
   height: 2rem;
   width: 3.5rem;
   background-color: #fff;
+  color: #fff;
+  line-height: 1rem;
+  text-align: center;
   position: relative;
   border-radius: 0.2em;
   cursor: pointer;
@@ -179,6 +182,7 @@ input[type='checkbox'] {
   &::before {
     content: 'C';
     text-align: center;
+    line-height: 1.45rem;
     display: block;
     height: 1.9em;
     width: 1.9em;
@@ -186,7 +190,7 @@ input[type='checkbox'] {
     position: absolute;
     top: 50%;
     left: calc(1.9em / 2 + 0.3em);
-    background-color: var(--col-hot);
+    background-color: var(--col-cold);
     border-radius: 0.2em;
     transition: 0.3s ease;
   }
@@ -194,7 +198,7 @@ input[type='checkbox'] {
   &:checked::before {
     content: 'F';
     text-align: center;
-    background-color: var(--col-cold);
+    background-color: var(--col-hot);
     left: calc(100% - (1.9em / 2 + 0.3em));
   }
 }
