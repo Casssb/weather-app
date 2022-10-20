@@ -248,7 +248,7 @@ const displayController = (() => {
   /* Holds the state to allow key presses to loop search results */
   let searchIndex = 0;
 
-  const HandleKeyCoords = (list, elem) => {
+  const handleKeyCoords = (list, elem) => {
     const latitude = list[elem].dataset.lat;
     const longitude = list[elem].dataset.lon;
     storageController.updateLocalstorage(latitude, longitude);
@@ -268,18 +268,16 @@ const displayController = (() => {
     if (listItems) {
       if (e.keyCode === 13) {
         e.preventDefault();
-        HandleKeyCoords(listItems, searchIndex);
+        handleKeyCoords(listItems, searchIndex);
         searchIndex = 0;
       } else if (e.keyCode === 40) {
         if (searchIndex >= listItems.length - 1) return;
         searchIndex += 1;
         listItems[searchIndex].style.backgroundColor = '#018881';
-        console.log(e, searchIndex);
       } else if (e.keyCode === 38) {
         if (searchIndex === 0) return;
         searchIndex -= 1;
         listItems[searchIndex].style.backgroundColor = '#018881';
-        console.log(e, searchIndex);
       }
     }
   });
